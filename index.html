@@ -214,6 +214,54 @@
             font-weight: 500;
         }
 
+        /* Mobile Message Overlay */
+        .mobile-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .mobile-message.active {
+            display: flex;
+        }
+
+        .mobile-content {
+            text-align: center;
+            color: white;
+            max-width: 400px;
+        }
+
+        .mobile-content .heart-big {
+            font-size: 100px;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 30px;
+        }
+
+        .mobile-content h2 {
+            font-size: 32px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .mobile-content p {
+            font-size: 20px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .laptop-icon {
+            font-size: 60px;
+            margin: 30px 0;
+        }
+
         @media (max-width: 600px) {
             .card {
                 padding: 40px 30px;
@@ -244,6 +292,16 @@
     </style>
 </head>
 <body>
+    <!-- Mobile Message Overlay -->
+    <div class="mobile-message" id="mobileMessage">
+        <div class="mobile-content">
+            <div class="heart-big">💖</div>
+            <h2>My love for you is way bigger than this mobile screen!</h2>
+            <div class="laptop-icon">💻</div>
+            <p>Please open this on a laptop or desktop to experience the full magic ✨</p>
+        </div>
+    </div>
+
     <!-- Floating Hearts -->
     <div class="heart">💕</div>
     <div class="heart">💖</div>
@@ -277,13 +335,24 @@
     <!-- Celebration Screen -->
     <div class="celebration" id="celebration">
         <div class="celebration-content">
-            <h2>Aww 🥹</h2>
+            <h2>🎉 Yay! 🎉</h2>
             <p>I'm the happiest person alive! 💕</p>
             <p style="margin-top: 20px; font-size: 24px;">Thank you for making my day special! ✨</p>
         </div>
     </div>
 
     <script>
+        // Mobile Detection
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                || window.innerWidth < 768;
+        }
+
+        // Show mobile message if on mobile
+        if (isMobileDevice()) {
+            document.getElementById('mobileMessage').classList.add('active');
+        }
+
         const noBtn = document.getElementById('noBtn');
         const card = document.querySelector('.card');
         let isHovering = false;
